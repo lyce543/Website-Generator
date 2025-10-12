@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="{{ meta_description }}">
+    <title>{{ title }}</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background: white;
+        }
+        .hero {
+            height: 70vh;
+            background: linear-gradient(135deg, {{ color_scheme.primary }}, {{ color_scheme.secondary }});
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 150%;
+            height: 150%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: moveGrid 20s linear infinite;
+        }
+        @keyframes moveGrid {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+        }
+        h1 {
+            font-size: 4rem;
+            font-weight: 900;
+            margin-bottom: 1.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        .meta {
+            font-size: 1.3rem;
+            line-height: 1.6;
+            opacity: 0.95;
+        }
+        .content {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+        section {
+            margin-bottom: 4rem;
+            display: flex;
+            gap: 3rem;
+            align-items: flex-start;
+        }
+        section:nth-child(even) { flex-direction: row-reverse; }
+        .section-number {
+            font-size: 5rem;
+            font-weight: 900;
+            color: {{ color_scheme.accent }};
+            opacity: 0.3;
+            min-width: 100px;
+        }
+        .section-content { flex: 1; }
+        h2 {
+            font-size: 2.2rem;
+            color: {{ color_scheme.primary }};
+            margin-bottom: 1.5rem;
+        }
+        p {
+            line-height: 1.9;
+            color: #333;
+            font-size: 1.05rem;
+        }
+        footer {
+            background: #111;
+            color: white;
+            text-align: center;
+            padding: 3rem 2rem;
+        }
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5rem; }
+            section { flex-direction: column !important; }
+            .section-number { font-size: 3rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="hero">
+        <div class="hero-content">
+            <h1>{{ title }}</h1>
+            <p class="meta">{{ meta_description }}</p>
+        </div>
+    </div>
+    
+    <div class="content">
+        {% for section in sections %}
+        <section>
+            <div class="section-number">{{ loop.index }}</div>
+            <div class="section-content">
+                <h2>{{ section.heading }}</h2>
+                <p>{{ section.content }}</p>
+            </div>
+        </section>
+        {% endfor %}
+    </div>
+    
+    <footer>
+        <p style="margin-bottom: 0.5rem;">AI Generated Content</p>
+        <p>{{ timestamp }} | {{ site_id }}</p>
+    </footer>
+</body>
+</html>

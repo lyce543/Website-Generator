@@ -35,3 +35,19 @@ export OPENAI_API_KEY="your-api-key-here"
 
 # Start server
 python app/main.py
+
+## Testing
+
+Run unit tests:
+```bash
+# Install test dependencies
+pip install pytest pytest-asyncio
+
+# Run all tests
+pytest tests/ -v
+
+# Run specific test file
+pytest tests/test_generator.py -v
+
+# Run with coverage
+pytest tests/ --cov=app --cov-report=html

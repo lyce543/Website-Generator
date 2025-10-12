@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="{{ meta_description }}">
+    <title>{{ title }}</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            min-height: 100vh;
+            background: #f5f5f5;
+        }
+        aside {
+            width: 280px;
+            background: {{ color_scheme.primary }};
+            color: white;
+            padding: 2rem;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+        }
+        aside h1 { font-size: 1.8rem; margin-bottom: 2rem; }
+        aside nav a {
+            display: block;
+            color: white;
+            text-decoration: none;
+            padding: 0.8rem;
+            margin: 0.5rem 0;
+            border-radius: 5px;
+            transition: background 0.2s;
+        }
+        aside nav a:hover { background: rgba(255,255,255,0.2); }
+        main {
+            margin-left: 280px;
+            padding: 3rem;
+            flex: 1;
+        }
+        section {
+            background: white;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            border-left: 5px solid {{ color_scheme.accent }};
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        h2 { 
+            color: {{ color_scheme.primary }}; 
+            margin-bottom: 1.5rem;
+            font-size: 2rem;
+        }
+        p { line-height: 1.9; color: #333; }
+        @media (max-width: 768px) {
+            aside { position: relative; width: 100%; height: auto; }
+            main { margin-left: 0; }
+        }
+    </style>
+</head>
+<body>
+    <aside>
+        <h1>{{ title }}</h1>
+        <p style="opacity: 0.9; margin-bottom: 2rem;">{{ meta_description }}</p>
+        <nav>
+            {% for section in sections %}
+            <a href="#section-{{ loop.index }}">{{ section.heading }}</a>
+            {% endfor %}
+        </nav>
+    </aside>
+    
+    <main>
+        {% for section in sections %}
+        <section id="section-{{ loop.index }}">
+            <h2>{{ section.heading }}</h2>
+            <p>{{ section.content }}</p>
+        </section>
+        {% endfor %}
+        
+        <footer style="text-align: center; padding: 2rem; color: #666;">
+            Generated: {{ timestamp }} | ID: {{ site_id }}
+        </footer>
+    </main>
+</body>
+</html>

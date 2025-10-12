@@ -13,8 +13,8 @@ class GenerateRequest(BaseModel):
     style: str = Field(default="educational", description="Content style: educational, marketing, or technical")
     max_tokens: int = Field(default=800, ge=100, le=2000, description="Maximum tokens per section")
     
-    class Config:
-        json_schema_extra = {
+    model_config = {
+        "json_schema_extra": {
             "example": {
                 "topic": "Large Language Models",
                 "pages_count": 5,
@@ -22,6 +22,7 @@ class GenerateRequest(BaseModel):
                 "max_tokens": 800
             }
         }
+    }
 
 
 class WebsiteMetadata(BaseModel):
@@ -49,7 +50,7 @@ class LogEntry(BaseModel):
     topic: str
     pages_count: int
     style: str
-    site_ids: str  # JSON string of site IDs
+    site_ids: str
     timestamp: str
 
 

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="{{ meta_description }}">
+    <title>{{ title }}</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, {{ color_scheme.primary }} 0%, {{ color_scheme.secondary }} 100%);
+            min-height: 100vh;
+            padding: 2rem;
+        }
+        .container { max-width: 1200px; margin: 0 auto; }
+        header {
+            background: white;
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        h1 { 
+            font-size: 3rem; 
+            background: linear-gradient(135deg, {{ color_scheme.primary }}, {{ color_scheme.accent }});
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+        }
+        .meta { color: #666; font-size: 1.1rem; }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        .card {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+        .card:hover { transform: translateY(-10px); }
+        .card h2 {
+            color: {{ color_scheme.primary }};
+            margin-bottom: 1rem;
+            font-size: 1.8rem;
+        }
+        .card p { line-height: 1.8; color: #444; }
+        footer {
+            text-align: center;
+            margin-top: 3rem;
+            color: white;
+            padding: 2rem;
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>{{ title }}</h1>
+            <p class="meta">{{ meta_description }}</p>
+        </header>
+        
+        <div class="grid">
+            {% for section in sections %}
+            <div class="card">
+                <h2>{{ section.heading }}</h2>
+                <p>{{ section.content }}</p>
+            </div>
+            {% endfor %}
+        </div>
+        
+        <footer>
+            <p>Generated: {{ timestamp }} | ID: {{ site_id }}</p>
+        </footer>
+    </div>
+</body>
+</html>

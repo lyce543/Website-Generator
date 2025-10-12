@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="{{ meta_description }}">
+    <title>{{ title }}</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: Georgia, 'Times New Roman', serif;
+            background: #fafafa;
+            line-height: 1.8;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 0 40px rgba(0,0,0,0.1);
+        }
+        header {
+            border-top: 8px solid {{ color_scheme.primary }};
+            border-bottom: 3px double {{ color_scheme.primary }};
+            padding: 3rem 2rem;
+            text-align: center;
+            background: {{ color_scheme.secondary }};
+            color: white;
+        }
+        h1 {
+            font-size: 2.8rem;
+            font-weight: 700;
+            letter-spacing: -1px;
+            margin-bottom: 1rem;
+        }
+        .meta {
+            font-style: italic;
+            font-size: 1.1rem;
+            opacity: 0.95;
+        }
+        article {
+            padding: 3rem 4rem;
+        }
+        section {
+            break-inside: avoid;
+            margin-bottom: 3rem;
+        }
+        h2 {
+            font-size: 1.9rem;
+            color: {{ color_scheme.primary }};
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid {{ color_scheme.accent }};
+        }
+        p { 
+            text-align: justify;
+            margin-bottom: 1.2rem;
+            color: #222;
+        }
+        footer {
+            border-top: 3px double {{ color_scheme.primary }};
+            padding: 2rem;
+            text-align: center;
+            background: #f9f9f9;
+            font-size: 0.9rem;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>{{ title }}</h1>
+            <p class="meta">{{ meta_description }}</p>
+        </header>
+        
+        <article>
+            {% for section in sections %}
+            <section>
+                <h2>{{ section.heading }}</h2>
+                <p>{{ section.content }}</p>
+            </section>
+            {% endfor %}
+        </article>
+        
+        <footer>
+            <p>Published: {{ timestamp }}</p>
+            <p>Document ID: {{ site_id }}</p>
+        </footer>
+    </div>
+</body>
+</html>
