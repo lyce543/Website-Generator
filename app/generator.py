@@ -55,94 +55,322 @@ class WebsiteGenerator:
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="{{ meta_description }}">
+    <meta name="keywords" content="{{ title }}, technology, innovation">
+    <meta name="author" content="AI Website Generator">
     <title>{{ title }}</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background: linear-gradient(135deg, {{ color_scheme.primary }} 0%, {{ color_scheme.secondary }} 100%);
-            min-height: 100vh;
-            padding: 2rem;
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
         }
+        
+        :root {
+            --primary: {{ color_scheme.primary }};
+            --secondary: {{ color_scheme.secondary }};
+            --accent: {{ color_scheme.accent }};
+            --text: #2d3748;
+            --text-light: #4a5568;
+            --bg-light: #f7fafc;
+            --border: #e2e8f0;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+            line-height: 1.7;
+            color: var(--text);
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            min-height: 100vh;
+            padding: 2rem 1rem;
+        }
+        
         .container {
-            max-width: 900px;
+            max-width: 1000px;
             margin: 0 auto;
             background: white;
-            padding: 3rem;
-            border-radius: 12px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+            border-radius: 16px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            overflow: hidden;
         }
-        h1 {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            color: {{ color_scheme.accent }};
-            border-bottom: 4px solid {{ color_scheme.accent }};
-            padding-bottom: 0.5rem;
-        }
-        .meta {
-            color: #666;
-            font-size: 0.95rem;
-            margin-bottom: 2rem;
-            padding: 1rem;
-            background: #f8f9fa;
-            border-left: 4px solid {{ color_scheme.accent }};
-        }
-        section {
-            margin: 2.5rem 0;
-            padding: 1.5rem;
-            background: #fafafa;
-            border-radius: 8px;
-            transition: transform 0.2s;
-        }
-        section:hover {
-            transform: translateX(10px);
-            box-shadow: -5px 0 15px rgba(0,0,0,0.1);
-        }
-        h2 {
-            font-size: 1.8rem;
-            margin-bottom: 1rem;
-            color: {{ color_scheme.secondary }};
-        }
-        p {
-            margin-bottom: 1rem;
-            text-align: justify;
-        }
-        .footer {
-            margin-top: 3rem;
-            padding-top: 2rem;
-            border-top: 2px solid #eee;
+        
+        /* Header */
+        header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 3rem 2rem;
             text-align: center;
-            color: #999;
-            font-size: 0.9rem;
+            position: relative;
+            overflow: hidden;
         }
+        
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="100" fill="none"/><circle cx="50" cy="50" r="40" fill="white" opacity="0.05"/></svg>');
+            opacity: 0.1;
+        }
+        
+        h1 {
+            font-size: 2.75rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+            position: relative;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .meta {
+            font-size: 1.125rem;
+            opacity: 0.95;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.6;
+            position: relative;
+        }
+        
+        /* Navigation */
+        nav {
+            background: white;
+            border-bottom: 1px solid var(--border);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+        
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        nav a {
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            transition: all 0.2s;
+        }
+        
+        nav a:hover {
+            background: var(--bg-light);
+            color: var(--primary);
+        }
+        
+        /* Main Content */
+        main {
+            padding: 3rem 2rem;
+        }
+        
+        section {
+            margin-bottom: 4rem;
+            animation: fadeIn 0.6s ease-in-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        section:hover {
+            transform: translateX(0);
+        }
+        
+        h2 {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 3px solid var(--accent);
+            display: inline-block;
+        }
+        
+        h2::before {
+            content: '▸ ';
+            color: var(--accent);
+            font-weight: bold;
+        }
+        
+        .content {
+            background: var(--bg-light);
+            padding: 2rem;
+            border-radius: 12px;
+            border-left: 4px solid var(--accent);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .content::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100px;
+            height: 100px;
+            background: var(--accent);
+            opacity: 0.05;
+            border-radius: 50%;
+            transform: translate(30%, -30%);
+        }
+        
+        p {
+            margin-bottom: 1.25rem;
+            text-align: justify;
+            line-height: 1.8;
+            color: var(--text-light);
+            position: relative;
+        }
+        
+        p:first-letter {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: var(--primary);
+        }
+        
+        /* Highlight boxes */
+        .highlight {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+            border-left: 4px solid var(--primary);
+        }
+        
+        /* Footer */
+        footer {
+            background: linear-gradient(to right, var(--bg-light), white);
+            padding: 2rem;
+            text-align: center;
+            border-top: 1px solid var(--border);
+        }
+        
+        .footer-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .site-info {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+        
         .site-id {
             font-family: 'Courier New', monospace;
-            background: #f0f0f0;
-            padding: 0.2rem 0.5rem;
-            border-radius: 4px;
+            background: var(--bg-light);
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            border: 1px solid var(--border);
+            font-size: 0.85rem;
+        }
+        
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            background: var(--accent);
+            color: white;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            body {
+                padding: 1rem 0.5rem;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            header {
+                padding: 2rem 1rem;
+            }
+            
+            main {
+                padding: 2rem 1rem;
+            }
+            
+            nav ul {
+                gap: 1rem;
+            }
+            
+            nav a {
+                padding: 0.4rem 0.8rem;
+                font-size: 0.9rem;
+            }
+        }
+        
+        /* Print styles */
+        @media print {
+            body {
+                background: white;
+            }
+            
+            .container {
+                box-shadow: none;
+            }
+            
+            nav {
+                display: none;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>{{ title }}</h1>
-        <div class="meta">
-            {{ meta_description }}
-        </div>
+        <header>
+            <h1>{{ title }}</h1>
+            <p class="meta">{{ meta_description }}</p>
+        </header>
         
-        {% for section in sections %}
-        <section>
-            <h2>{{ section.heading }}</h2>
-            <p>{{ section.content }}</p>
-        </section>
-        {% endfor %}
+        <nav>
+            <ul>
+                {% for section in sections %}
+                <li><a href="#section-{{ loop.index }}">{{ section.heading }}</a></li>
+                {% endfor %}
+            </ul>
+        </nav>
         
-        <div class="footer">
-            <p>Generated on {{ timestamp }}</p>
-            <p>Site ID: <span class="site-id">{{ site_id }}</span></p>
-        </div>
+        <main>
+            {% for section in sections %}
+            <section id="section-{{ loop.index }}">
+                <h2>{{ section.heading }}</h2>
+                <div class="content">
+                    <p>{{ section.content }}</p>
+                </div>
+            </section>
+            {% endfor %}
+            
+            <div class="highlight">
+                <p><strong>💡 Key Takeaway:</strong> This content was generated using advanced AI technology to provide unique, informative content tailored to your needs.</p>
+            </div>
+        </main>
+        
+        <footer>
+            <div class="footer-content">
+                <span class="badge">AI Generated</span>
+                <div class="site-info">
+                    <span>📅 Generated: {{ timestamp }}</span>
+                    <span>🆔 ID: <span class="site-id">{{ site_id }}</span></span>
+                </div>
+            </div>
+        </footer>
     </div>
 </body>
 </html>"""
