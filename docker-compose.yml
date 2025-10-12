@@ -1,0 +1,44 @@
+version: '3.8'
+
+services:
+  api:
+    build: .
+    container_name: website-generator-api
+    ports:
+      - "8000:8000"
+    environment:
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - PYTHONUNBUFFERED=1
+    volumes:
+      - ./sites:/app/sites
+      - ./generation_logs.db:/app/generation_logs.db
+      - ./app:/app/app
+    restart: unless-stopped
+    networks:
+      - website-gen-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+
+  # Optional: Redis for caching (uncomment if needed)
+  # redis:
+  #   image: redis:7-alpine
+  #   container_name: website-generator-redis
+  #   ports:
+  #     - "6379:6379"
+  #   volumes:
+  #     - redis-data:/data
+  #   networks:
+  #     - website-gen-network
+  #   restart: unless-stopped
+
+networks:
+  website-gen-network:
+    driver: bridge
+
+volumes:
+  redis-data:
+    driver: local
