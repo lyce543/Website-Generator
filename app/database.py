@@ -9,7 +9,6 @@ from pathlib import Path
 
 
 class Database:
-    """SQLite database manager for generation logs"""
     
     def __init__(self, db_path: str = "generation_logs.db"):
         self.db_path = db_path
@@ -53,7 +52,6 @@ class Database:
         style: str,
         site_ids: List[str]
     ):
-        """Log a generation request"""
         cursor = self.conn.cursor()
         cursor.execute("""
             INSERT INTO generation_logs (topic, pages_count, style, site_ids)
@@ -107,15 +105,12 @@ class Database:
         """Get generation statistics"""
         cursor = self.conn.cursor()
         
-        # Total generations
         cursor.execute("SELECT COUNT(*) as total FROM generation_logs")
         total_generations = cursor.fetchone()['total']
         
-        # Total sites
         cursor.execute("SELECT SUM(pages_count) as total FROM generation_logs")
         total_sites = cursor.fetchone()['total'] or 0
         
-        # Most popular topics
         cursor.execute("""
             SELECT topic, COUNT(*) as count
             FROM generation_logs
@@ -125,7 +120,6 @@ class Database:
         """)
         popular_topics = [dict(row) for row in cursor.fetchall()]
         
-        # Style distribution
         cursor.execute("""
             SELECT style, COUNT(*) as count
             FROM generation_logs
@@ -143,4 +137,5 @@ class Database:
     def close(self):
         """Close database connection"""
         if self.conn:
+
             self.conn.close()
