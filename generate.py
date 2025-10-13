@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """
 CLI utility for generating websites
 Usage: python generate.py --topic "AI" --count 5 --style educational
@@ -108,4 +107,5 @@ async def main():
 
 
 if __name__ == "__main__":
+
     asyncio.run(main())
