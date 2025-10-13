@@ -5,9 +5,7 @@ import random
 from typing import List, Dict
 
 
-class PromptManager:
-    """Manage prompts for content generation"""
-    
+class PromptManager:  
     def __init__(self):
         self.title_variations = [
             "Create a compelling title about {topic}. Style: {style}. Be unique and engaging.",
@@ -126,7 +124,6 @@ class PromptManager:
         style: str,
         max_tokens: int
     ) -> str:
-        """Create section prompt"""
         base_prompts = {
             "intro": "Write an engaging introduction about {topic}. Set context. Style: {style}. Length: {tokens} words.",
             "fundamentals": "Explain fundamental concepts of {topic}. Clear and accessible. Style: {style}. Length: {tokens} words.",
@@ -152,4 +149,5 @@ class PromptManager:
             heading=heading,
             style=style,
             tokens=word_count
+
         )
