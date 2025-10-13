@@ -7,7 +7,6 @@ from datetime import datetime
 
 
 class GenerateRequest(BaseModel):
-    """Request model for website generation"""
     topic: str = Field(..., description="Main topic for website generation")
     pages_count: int = Field(default=5, ge=1, le=50, description="Number of sites to generate")
     style: str = Field(default="educational", description="Content style: educational, marketing, or technical")
@@ -58,4 +57,5 @@ class SectionContent(BaseModel):
     """Model for individual content section"""
     heading: str
     content: str
+
     section_type: Optional[str] = None
